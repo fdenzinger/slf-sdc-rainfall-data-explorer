@@ -273,7 +273,6 @@ def main():
         year_df['month'] = year_df.index.month
         year_df['day'] = year_df.index.day
 
-        # --- DEFINITIVELY CORRECTED MERGE LOGIC ---
         year_df = pd.merge(
             year_df,
             climatology,
