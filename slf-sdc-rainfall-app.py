@@ -42,7 +42,7 @@ import pandas as pd
 import altair as alt
 import datetime
 
-LOGO_IMG_PATH = "image_d010a0.png"
+LOGO_IMG_PATH = "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/main/assets/logo.png"
 DATA_URL = "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/refs/heads/main/data/rainfall_data_30.463_79.525.csv"
 
 
