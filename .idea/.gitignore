@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/misc.xml
+/inspectionProfiles/profiles_settings.xml
+/dictionaries/project.xml
+/inspectionProfiles/Project_Default.xml
+/slf-sdc-rainfall-data-explorer.iml
+/vcs.xml
