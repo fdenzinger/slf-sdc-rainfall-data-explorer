@@ -1,8 +1,25 @@
-# SDC2: Rainfall Data Explorer
+# SLF SDC2: Rainfall Data Explorer
+## An Interactive Web Application for Rainfall Analysis
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Built with Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io) [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+**Status:** Actively Developed (as of July 2025)
 
 An interactive web application built with Streamlit for the analysis and visualization of a specific daily rainfall dataset. This tool allows users to explore rainfall patterns, estimate monsoon withdrawal dates, and analyze climatological anomalies.
+
+---
+
+The app is hosted on Streamlit Cloud and can be accessed [here](https://slf-sdc-rainfall-data-explorer.streamlit.app/).
+
+![App Screenshot](docs/markdown/assets/SLF_SDC_Rainfall_DataExplorer.gif)
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation & Usage](#installation--usage)
+- [License](#license)
 
 ---
 
@@ -50,42 +67,51 @@ The location of the dataset is also displayed on an interactive map at the botto
 
 ## Installation & Usage
 
-To run this application on your local machine, please follow these steps.
+This guide assumes you have a Mamba/Conda installation. For a new, minimal, open-source setup, we recommend installing Miniforge from the [official repository](https://github.com/conda-forge/miniforge?tab=readme-ov-file#install). Miniforge is pre-configured to use the `conda-forge` channel and includes the fast `mamba` package manager by default.
 
-### Prerequisites
-- [Anaconda](https://www.anaconda.com/products/distribution) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) installed.
+**Steps:**
 
-### 1. Clone the Repository
+
+1. Clone the repository & navigate into its directory
 ```bash
-git clone [https://github.com/fdenzinger/slf-sdc-rainfall-data-explorer.git](https://github.com/fdenzinger/slf-sdc-rainfall-data-explorer.git)
+git clone "https://github.com/fdenzinger/slf-sdc-rainfall-data-explorer.git" slf-sdc-rainfall-data-explorer
 cd slf-sdc-rainfall-data-explorer
 ```
 
-### 2. Create and Activate a Conda Environment
+2. Create and activate the environment with Mamba (this may take a few minutes).
 
-This command creates a new conda environment named rainfall-app with Python 3.12 and activates it.
+Mamba is a fast, parallel replacement for Conda and comes with Miniforge.
 ```bash
-conda create --name rainfall-app python=3.12
-conda activate rainfall-app
+mamba env create -f env/environment.yml
+conda activate slf-sdc-rainfall-data-explorer
 ```
 
-### 3. Install Required Packages
+3. Run the Streamlit app
 
-Install the packages directly using conda. This is the recommended method for managing dependencies in a conda environment. We will specify the conda-forge channel as it provides a wide range of up-to-date packages.
+To run the Streamlit app locally, run the following command in your terminal:
 
-```bash 
-conda install -c conda-forge pandas streamlit altair
-```
-
-### 4. Run the Streamlit App
-
-Once the packages are installed, run the following command in your terminal:
 ```bash
 streamlit run slf-sdc-rainfall-app.py
 ```
 
-Your web browser should automatically open a new tab with the running application.
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/fdenzinger/slf-sdc-rainfall-data-explorer/tree/main?tab=MIT-1-ov-file) file for details.
+
+---
+
+## Collaborators
+
+The project is developed by the following contributors:
+
+<div align="left">
+  <a href="https://github.com/fdenzinger">
+    <img src="https://avatars.githubusercontent.com/fdenzinger" alt="fdenzinger" width="100" style="border-radius: 50%"><br>
+    Florian Denzinger
+  </a>
+</div>
+
+---
+© 2025 WSL Institute for Snow and Avalanche Research SLF

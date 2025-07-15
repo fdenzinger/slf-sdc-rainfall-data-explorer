@@ -1,0 +1,26 @@
+# YAML file for a Streamlit dashboard environment
+#
+# Install this environment using:
+#   conda env create -f path/to/environment.yml
+# Activate the environment using:
+#   conda activate slf-sdc-rainfall-app
+
+name: slf-sdc-rainfall-app
+channels:
+  - conda-forge
+
+dependencies:
+  # --- Python Version ---
+  - python=3.12         # Specify the Python version
+
+  # --- Core Data Library ---
+  - pandas              # For data manipulation and analysis
+
+  # --- Plotting & Visualization ---
+  - altair              # For declarative statistical visualization
+
+  # --- Web App ---
+  - streamlit           # For creating the interactive web application
+
+  # --- Pip ---
+  - pip                 # Ensures pip is installed in the environment
