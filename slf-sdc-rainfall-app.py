@@ -17,7 +17,7 @@
 #   20.06.2025
 #
 # Version:
-#   5.7 (Corrected Climatology Merge)
+#   6.0 (Fixed data processing for new dataset)
 #
 # License:
 #   MIT
@@ -43,7 +43,10 @@ import altair as alt
 import datetime
 
 LOGO_IMG_PATH = "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/main/assets/logo.png"
-DATA_URL = "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/refs/heads/main/data/rainfall_data_30.463_79.525.csv"
+DATA_URLS = {
+    "IMD 0.25deg (2010-2024)": "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/refs/heads/main/data/rainfall_data_30.463_79.525.csv",
+    "IMD 0.1deg (1991-2023)": "https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/refs/heads/main/data/patalganga_IPED_rainfall_data_30.463_79.525_1991_2023.csv"
+}
 
 
 @st.cache_data(show_spinner="Loading data...")
@@ -67,9 +70,15 @@ st.set_page_config(layout="wide")
 def main():
     """Defines the main execution of the Streamlit application."""
 
+    # --- Data Loading and Processing ---
+    
+    dataset_choice = st.radio(
+        "Choose a dataset to analyze:",
+        list(DATA_URLS.keys()),
+        horizontal=True
+    )
+
     # --- Header with Logo and Title ---
-
-
     col1, col2 = st.columns([0.1, 0.9])
     with col1:
         try:
@@ -78,18 +87,21 @@ def main():
             st.error(f"Logo not found {logo_error}. Please ensure '{LOGO_IMG_PATH}' is in the same folder as the script.")
             st.caption("Logo")
     with col2:
-        st.title("SDC2: Rainfall Data Explorer")
+        st.title(f"SDC2: Rainfall Data Explorer: {dataset_choice}")
 
-    # --- Data Loading and Processing ---
 
     try:
-        raw_df = load_data(DATA_URL)
+        raw_df = load_data(DATA_URLS[dataset_choice])
     except Exception as e:
         st.error(f"Fatal Error: Could not load data from the source URL. Error details: {e}")
         return
 
     df = raw_df.copy()
-    df['time'] = pd.to_datetime(df['time'], format='%d-%m-%Y', errors='coerce')
+    if dataset_choice == "IMD 0.1deg (1991-2023)":
+        df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d', errors='coerce')
+    else:
+        df['time'] = pd.to_datetime(df['time'], format='%d-%m-%Y', errors='coerce')
+        
     df.dropna(subset=['time'], inplace=True)
     df.set_index('time', inplace=True)
     df_timeseries = df[['rain (mm)']]
