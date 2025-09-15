@@ -3,9 +3,9 @@
 
 [![Built with Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io) [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**Status:** Actively Developed (as of July 2025)
+**Status:** Actively Developed (as of September 2025)
 
-An interactive web application built with Streamlit for the analysis and visualization of a specific daily rainfall dataset. This tool allows users to explore rainfall patterns, estimate monsoon withdrawal dates, and analyze climatological anomalies.
+An interactive web application built with Streamlit for analyzing and visualizing gridded rainfall datasets. This tool allows users to compare different data products, explore rainfall patterns, estimate monsoon withdrawal dates, analyze climatological anomalies, and upload their own time series data.
 
 ---
 
@@ -15,62 +15,75 @@ The app is hosted on Streamlit Cloud and can be accessed [here](https://slf-sdc-
 
 ---
 
-## Table of Contents
 
-- [Features](#features)
-- [Installation & Usage](#installation--usage)
-- [License](#license)
+## Table of Contents
+ - [Features](#features)
+ - [Data Sources](#data-sources)
+ - [Local Data Processing](#local-data-processing)
+ - [Installation & Usage](#installation--usage)
+ - [License](#license)
 
 ---
 
 ## Features
-
-The application is organized into three main tabs, each providing a distinct set of analytical tools:
-
-### 1. General Rainfall Analysis
-- **Flexible Timeframes:** View data for a specific year or select a custom date range.
-- **Multiple Aggregation Levels:** Aggregate rainfall totals **Daily**, **Weekly**, **Monthly**, or **Yearly**.
-- **Key Performance Indicators (KPIs):** Instantly see key stats for the selected period, including:
-    - Total Rainfall
-    - Average Daily Rainfall
-    - Peak Rainfall Day and Amount
-- **Data Export:** Download the aggregated data as a CSV file for offline analysis.
-- **Interactive Charts:** Visualize data through interactive bar charts powered by Altair.
-
+ 
+The application provides a comprehensive suite of tools for rainfall analysis:
+ 
+### 1. Data Handling & Comparison
+- **Multiple Datasets:** Analyze and compare two preloaded, high-resolution Indian rainfall datasets (IMD 0.25° and IPED 0.1°).
+- **Custom Data Upload:** Upload your own CSV file with `time` and `rain (mm)` columns for instant analysis.
+- **Comparative Visualization:** When comparing datasets, charts are displayed side-by-side for easy interpretation.
+ 
 ### 2. Monsoon End Date Estimator
-- **Algorithmic Estimation:** Automatically estimates the monsoon withdrawal date based on a sustained dry period.
-- **Customizable Parameters:** Fine-tune the algorithm by setting:
-    - The **analysis start date** (to avoid pre-monsoon dry spells).
+- **Algorithmic Forecasting:** Estimates the monsoon withdrawal date based on a sustained dry period to help plan post-monsoon activities.
+- **Sensitivity Analysis:** Interactively fine-tune the algorithm by setting:
+    - The **analysis start month** (to avoid pre-monsoon dry spells).
     - The **'dry day' threshold** (mm) to define what counts as a dry day.
     - The required number of **consecutive dry days** to confirm the withdrawal.
-- **Visual Feedback:** The estimated monsoon end date is clearly marked with a vertical line on the year's rainfall chart.
-
-### 3. Climatology & Anomaly
+- **Statistical Summary:** A dot plot shows the historical distribution of end dates, with the median and 95% confidence interval highlighted.
+- **Monitoring Recommendations:** Automatically calculates "Earliest," "Likely," and "Latest" monitoring start dates based on historical data and a user-defined lag time.
+ 
+### 3. General Rainfall Analysis
+- **Flexible Timeframes:** View data for a specific year or a custom date range.
+- **Multiple Aggregation Levels:** Aggregate rainfall totals as **Daily**, **Weekly**, **Monthly**, or **Yearly**.
+- **Key Performance Indicators (KPIs):** Instantly see key stats for the selected period, including Total Rainfall, Average Daily Rainfall, and Peak Rainfall Day.
+- **Data Export:** Download aggregated data as a CSV file.
+ 
+### 4. Climatology & Anomaly
 - **Long-Term Comparison:** Compare a selected year's daily rainfall against the long-term daily average (climatology) calculated from all other years in the dataset.
 - **Dual Visualization:**
     1.  An overlay chart showing the selected year's daily rainfall bars and the long-term average as a line.
     2.  A rainfall anomaly chart, highlighting days that were wetter (blue) or drier (brown) than the historical average.
-- **Identify Trends:** Easily spot significant deviations from the norm, such as prolonged droughts or exceptionally wet periods.
 
 ---
 
-## Data Source
 
-The application uses a specific rainfall dataset located in the Indian Himalayas.
+## Data Sources
+ 
+The application uses two preloaded datasets for a location in the Indian Himalayas (**30.463° N, 79.525° E**).
+ 
+#### IMD 0.25deg: Official Gridded Daily Rainfall Data
+- **Citation:** Pai, D.S., Sridhar, L., Rajeevan, M. *et al*. Development of a new high spatial resolution (0.25° X 0.25°) long period (1901-2010) daily gridded rainfall data set over India and its comparison with existing data sets over the region. *MAUSAM*, 65(1), pp.1-18 (2014).
+- **Description:** This official daily dataset from the IMD is created using Shepard's interpolation method, a form of inverse distance weighting, applied to measurements from a dense national network of rain gauge stations.
+ 
+#### IMD 0.1deg: Indian Precipitation Ensemble Dataset (IPED)
+- **Citation:** Peringiyil, A., Saharia, M., O. P., S. *et al.* A station-based 0.1-degree daily gridded ensemble precipitation dataset for India. *Sci Data* **12**, 333 (2025). https://doi.org/10.1038/s41597-025-04474-2
+- **Description:** This dataset was developed by applying a locally weighted spatial regression method to data from thousands of IMD rain gauge stations. This approach also incorporates topographical features to produce more accurate estimates, especially in complex terrain. The mean of the 30-member ensemble is used in this application.
+ 
+ ---
 
--   **Coordinates:** 30.463° N, 79.525° E
--   **Data URL:** [rainfall_data_30.463_79.525.csv](https://raw.githubusercontent.com/fdenzinger/slf-sdc-rainfall-data-explorer/refs/heads/main/data/rainfall_data_30.463_79.525.csv)
-
-The location of the dataset is also displayed on an interactive map at the bottom of the application.
-
----
+## Local Data Processing
+ 
+The repository includes a Python script (`slf-sdc-rainfall-download-data.py`) for processing rainfall data locally. This script can:
+ 
+1.  **Download IMD Data:** Automatically download the official 0.25° gridded data for a specified time range using the `imdlib` library.
+2.  **Extract Time Series from NetCDF:** Process raw IPED 0.1° NetCDF (`.nc`) files, find the grid cell closest to a target coordinate, and extract a continuous daily time series.
 
 ## Installation & Usage
 
 This guide assumes you have a Mamba/Conda installation. For a new, minimal, open-source setup, we recommend installing Miniforge from the [official repository](https://github.com/conda-forge/miniforge?tab=readme-ov-file#install). Miniforge is pre-configured to use the `conda-forge` channel and includes the fast `mamba` package manager by default.
 
 **Steps:**
-
 
 1. Clone the repository & navigate into its directory
 ```bash
