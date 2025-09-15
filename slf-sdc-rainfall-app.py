@@ -331,7 +331,7 @@ def main():
                             "Monitoring Lag Time (days)",
                             min_value=0,
                             max_value=90,
-                            value=14,
+                            value=0,
                             help="How many days *after* the rain stops should monitoring begin?"
                         )
 
