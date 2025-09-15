@@ -11,7 +11,7 @@ An interactive web application built with Streamlit for analyzing and visualizin
 
 The app is hosted on Streamlit Cloud and can be accessed [here](https://slf-sdc-rainfall-data-explorer.streamlit.app/).
 
-![App Screenshot](docs/markdown/assets/SLF_SDC_Rainfall_DataExplorer.gif)
+![App Screenshot Preview](docs/markdown/assets/SLF_SDC_Rainfall_DataExplorer.gif)
 
 ---
 
