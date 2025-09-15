@@ -91,9 +91,9 @@ def main():
         st.markdown("""
             This tool is designed to help you plan landslide monitoring campaigns by forecasting the end of the monsoon season. Here's a quick guide to the tabs:
 
-            -   **🎯 Monsoon End Date Estimator:** **This is the main tool.** Use it to see the historical range of monsoon end dates and get a data-driven recommendation for when to start monitoring.
-            -   **📊 General Rainfall Analysis:** Use this tab for a general exploration of the daily, weekly, or monthly rainfall data for any period.
-            -   **☀️ Climatology & Anomaly:** This tab lets you compare a specific year against the long-term average to see if it was unusually wet or dry.
+            -   **Monsoon End Date Estimator:** **This is the main tool.** Use it to see the historical range of monsoon end dates and get a data-driven recommendation for when to start monitoring.
+            -   **General Rainfall Analysis:** Use this tab for a general exploration of the daily, weekly, or monthly rainfall data for any period.
+            -   **Climatology & Anomaly:** This tab lets you compare a specific year against the long-term average to see if it was unusually wet or dry.
             """)
     st.divider()
 
@@ -240,7 +240,7 @@ def main():
 
     # --- Tab Layout ---
     tab1, tab2, tab3 = st.tabs(
-        ["🎯 Monsoon End Date Estimator", "📊 General Rainfall Analysis", "☀️ Climatology & Anomaly"])
+        ["**Monsoon End Date Estimator**", "**General Rainfall Analysis**", "**Climatology & Anomaly**"])
 
     # --- Tab 1: Monsoon End Date Estimator ---
     with tab1:
@@ -410,8 +410,8 @@ def main():
                         "Shaded bands represent the 95% confidence interval for each dataset. Solid lines are the medians.")
 
             if dataset_choice != "Compare Both datasets":
-                st.subheader("3. Detailed Single-Year Analysis")
                 with st.container(border=True):
+                    st.subheader("3. Detailed Single-Year Analysis")
                     single_results_df = results_by_source[sources[0]]
                     years_monsoon = sorted(single_results_df['Year'].unique(), reverse=True)
                     selected_year_monsoon = st.selectbox("Select a Year to Analyze in Detail", years_monsoon,
@@ -686,17 +686,18 @@ def main():
                 st.altair_chart(anomaly_chart, use_container_width=True)
 
     # --- Common Elements Below Tabs ---
-    st.subheader("Data Location")
-    if map_data_list:
-        map_df = pd.concat(map_data_list)
-        st.map(map_df, zoom=8, size=1000)
+    with st.container(border=True):
+        st.subheader("Data Location")
+        if map_data_list:
+            map_df = pd.concat(map_data_list)
+            st.map(map_df, zoom=8, size=1000)
 
-        st.write("Coordinates:")
-        for index, row in map_df.iterrows():
-            if 'source' in row and pd.notna(row['source']):
-                st.markdown(f"- **{row['source']}**: Latitude `{row['lat']:.3f}`, Longitude `{row['lon']:.3f}`")
-            else:
-                st.markdown(f"- Latitude `{row['lat']:.3f}`, Longitude `{row['lon']:.3f}`")
+            st.write("Coordinates:")
+            for index, row in map_df.iterrows():
+                if 'source' in row and pd.notna(row['source']):
+                    st.markdown(f"- **{row['source']}**: Latitude `{row['lat']:.3f}`, Longitude `{row['lon']:.3f}`")
+                else:
+                    st.markdown(f"- Latitude `{row['lat']:.3f}`, Longitude `{row['lon']:.3f}`")
 
     st.markdown("---")
     st.markdown(
