@@ -84,7 +84,7 @@ def main():
         st.title("Landslide Satellite Monitoring Planner")
 
     # Sub-header on a new line below the columns
-    st.subheader("A Data-Driven Forecast of Monsoon End Dates for ICEYE Acquisition")
+    st.subheader("A Data-Driven Forecast of Monsoon End Dates for ICEYE Acquisition Planning")
 
     # --- How to Use Guide ---
     with st.expander("ℹ️ How to Use This App"):
