@@ -81,7 +81,7 @@ def main():
                 f"Logo not found {logo_error}. Please ensure '{LOGO_IMG_PATH}' is in the same folder as the script.")
             st.caption("Logo")
     with col2:
-        st.title("SDC2: Landslide Monitoring Planner")
+        st.title("Landslide Satellite Monitoring Planner")
 
     # Sub-header on a new line below the columns
     st.subheader("A Data-Driven Forecast of Monsoon End Dates for ICEYE Acquisition")
